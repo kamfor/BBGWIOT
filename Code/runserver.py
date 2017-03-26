@@ -7,13 +7,12 @@ monkey.patch_all()
 
 import time
 from threading import Thread
-#from flask import Flask, render_template, session, request
 from flask import  render_template, session, request
 from flask_socketio import SocketIO, emit, join_room, leave_room, \
     close_room, rooms, disconnect
 from FlaskWebProject1 import app
 import sensor
-#app = Flask(__name__)
+
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode='gevent')
 thread = None
@@ -21,25 +20,22 @@ thread = None
 def background_thread():
     """Example of how to send server generated events to clients."""
     count = 0
-    airquality = 0
-    temperature = 0
-    fahrenheit = 0
+    noise = 0
+    human1,human2 = 0
+
     while True:
         time.sleep(5)
-        print("Hello World")
+        print("Hello")
         count += 1
         socketio.emit('my response',
                       {'data': 'Server generated event', 'count': count},
                       namespace='/test')
-        airquality = sensor.AirRead()
-        temperature,fahrenheit = sensor.TemperatureRead()
-        print(airquality)
+        noise = sensor.NoiseRead()
+        human1, human2 = sensor.HumanRead()
+        print(noise)
         socketio.emit('my data',
-                      {'data': temperature,'data1': fahrenheit,'data2': airquality, },
+                      {'data': human1,'data1': human2,'data2': noise, },
                       namespace='/test')
-        #socketio.emit('my data',
-        #              {'Temperature': 10, 'Fahrenheit': 10,'AirQuality': 30,},
-        #              namespace='/test')
 
 @socketio.on('my event', namespace='/test')
 def test_message(message):
@@ -52,10 +48,10 @@ def test_message(message):
 def deal_relay(message):
     print("Recive the button info.")
     if message['data'] == "Open":
-        sensor.ControlRelay(1)
+        sensor.ControlRelay(0)
         print("Open the relay")
     if message['data'] == "Close":
-        sensor.ControlRelay(0)
+        sensor.ControlRelay(1)
         print("Close the relay")
 
 @socketio.on('my broadcast event', namespace='/test')

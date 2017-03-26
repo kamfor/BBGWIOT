@@ -3,7 +3,7 @@
 {% block content %}
 
 <head>
-    <title>Flask-SocketIO Test</title>
+    <title>Warsztaty WDI</title>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.6/socket.io.min.js"></script>
 
@@ -21,19 +21,14 @@
             }); */
             socket.on('my data', function (msg) {
                 //    $('#data').append('<br>' + $('<div/>').text('My data :' + msg.data ).html());
-                $('#data').text('Temperature :' + msg.data + " C").html();
-                $('#data1').text('Fahrenheit  :' + msg.data1 + " F").html();
-                $('#data2').text('Air Quality :' + msg.data2).html();
+                $('#data').text('Human Sensor 1 :' + msg.data + " C").html();
+                $('#data1').text('Human Sensor 2 :' + msg.data1 + " F").html();
+                $('#data2').text('Noise Level :' + msg.data2).html();
 
                 //$('#data').text('My data :' + msg.data).html();
                 update(Number(msg.data), Number(msg.data1))
                 update2(Number(msg.data2))
                 console.log("get data")
-
-
-                //update(Number(msg.temperature), Number(msg.fahrenheit))
-                //update2(Number(msg.airquality))
-
             });
 
 
@@ -54,7 +49,7 @@
 
         });
         function myFunction(name) {
-            alert("This will " + name + "the relay");
+            //alert("This will " + name + "the relay");
             socket.emit('my relay', { data: name
             });
         }
@@ -66,27 +61,19 @@
     <br>
     <p>
         <font size="5" face="arial" color="green">
-            Beaglebone Green Wireless has a 2.4-GHz wireless module (MIMO Wi-Fi + Bluetooth)on board,
-            making it more suitable for IoT prototypes. Take Home Control Gateway for example, it can be used as the remote of a wide range of TVs,
-            media devices and more -- you connect with it over Bluetooth to control everything from your phone.
+            Przykład wykorzystania komputera jedno-płytkowego BeagleBone Green Wireless
         </font>
     </p>
 
 
-
-
-    <!--<div id="Temperature"></div>
-    <div id="Fahrenheit"></div>
-    <div id="AirQuality"></div>-->
-
-    <h2 align="center">Grove Temperature Sensor</h2>
+    <h2 align="center">Human Sensors</h2>
     <div id="data"></div>
     <div id="data1"></div>
     <div align="center" , style="width:60%; margin:auto">
         <canvas id="canvas" height=100% width=height*4/5></canvas>
     </div>
 
-    <h2 align="center">Grove Air Quality Sensor</h2>
+    <h2 align="center">Noise Level Sensor</h2>
     <div id="data2"></div>
     <div align="center" , style="width:60%; margin:auto">
         <canvas id="MoistureChart" height=100% width=height*4/5></canvas>
