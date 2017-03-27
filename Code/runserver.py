@@ -21,7 +21,8 @@ def background_thread():
     """Example of how to send server generated events to clients."""
     count = 0
     noise = 0
-    human1,human2 = 0
+    human1 = 0
+    human2 = 0
 
     while True:
         time.sleep(5)
