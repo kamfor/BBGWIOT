@@ -11,7 +11,7 @@ def HumanRead():
     human2 = mraa.Aio(2)
     return1 = human1.read()
     return2 = human2.read()
-    return hretrn1,return2
+    return return1,return2
 
 def ControlRelay(flag):
     relay = mraa.Gpio(62) # GPIO_51
