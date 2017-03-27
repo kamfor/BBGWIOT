@@ -13,8 +13,16 @@ def HumanRead():
     return2 = human2.read()
     return return1,return2
 
-def ControlRelay(flag):
+def ControlRelay1(flag):
     relay = mraa.Gpio(62) # GPIO_51
+    relay.dir(mraa.DIR_OUT)
+    if flag == 1:
+        relay.write(1)
+    else:
+        relay.write(0)
+
+def ControlRelay2(flag):
+    relay = mraa.Gpio(60) # GPIO_50
     relay.dir(mraa.DIR_OUT)
     if flag == 1:
         relay.write(1)
@@ -26,7 +34,7 @@ if __name__ == "__main__":
     while True:
         print(AirRead())
         print(TemperatureRead())
-        ControlRelay(1)
+        ControlRelay1(1)
         time.sleep(1)
-        ControlRelay(0)
+        ControlRelay1(0)
         time.sleep(1)

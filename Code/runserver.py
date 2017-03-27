@@ -48,12 +48,18 @@ def test_message(message):
 @socketio.on('my relay', namespace='/test')
 def deal_relay(message):
     print("Recive the button info.")
-    if message['data'] == "Open":
-        sensor.ControlRelay(0)
-        print("Open the relay")
-    if message['data'] == "Close":
-        sensor.ControlRelay(1)
-        print("Close the relay")
+    if message['data'] == "Open1":
+        sensor.ControlRelay1(0)
+        print("Open the relay 1")
+    if message['data'] == "Close1":
+        sensor.ControlRelay1(1)
+        print("Close the relay 1")
+    if message['data'] == "Open2":
+        sensor.ControlRelay2(0)
+        print("Open the relay 2")
+    if message['data'] == "Close2":
+        sensor.ControlRelay2(1)
+        print("Close the relay 2")
 
 @socketio.on('my broadcast event', namespace='/test')
 def test_broadcast_message(message):
