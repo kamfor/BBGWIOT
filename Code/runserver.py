@@ -19,31 +19,22 @@ thread = None
 
 def background_thread():
     """Example of how to send server generated events to clients."""
-    count = 0
     noise = 0
     human1 = 0
     human2 = 0
 
     while True:
-        time.sleep(5)
+        time.sleep(3)
         print("Hello")
-        count += 1
         socketio.emit('my response',
-                      {'data': 'Server generated event', 'count': count},
+                      {'data': 'Server generated event'},
                       namespace='/test')
         noise = sensor.NoiseRead()
         human1, human2 = sensor.HumanRead()
-        print(noise)
+
         socketio.emit('my data',
                       {'data': human1,'data1': human2,'data2': noise, },
                       namespace='/test')
-
-@socketio.on('my event', namespace='/test')
-def test_message(message):
-    session['receive_count'] = session.get('receive_count', 0) + 1
-    emit('my response',
-         {'data': message['data'], 'count': session['receive_count']})
-
 
 @socketio.on('my relay', namespace='/test')
 def deal_relay(message):
@@ -61,17 +52,9 @@ def deal_relay(message):
         sensor.ControlRelay2(1)
         print("Close the relay 2")
 
-@socketio.on('my broadcast event', namespace='/test')
-def test_broadcast_message(message):
-    session['receive_count'] = session.get('receive_count', 0) + 1
-    emit('my response',
-         {'data': message['data'], 'count': session['receive_count']},
-         broadcast=True)
-
-
 @socketio.on('connect', namespace='/test')
 def test_connect():
-    emit('my response', {'data': 'Connected', 'count': 0})
+    emit('my response', {'data': 'Connected'})
 
 
 @socketio.on('disconnect', namespace='/test')

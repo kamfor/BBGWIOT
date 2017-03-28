@@ -2,13 +2,13 @@ import time
 import mraa
 
 def NoiseRead():
-    noise = mraa.Aio(3)
+    noise = mraa.Aio(7) #AIN6
     NoiseValue = noise.read()
     return NoiseValue
 
 def HumanRead():
-    human1 = mraa.Aio(1)
-    human2 = mraa.Aio(2)
+    human1 = mraa.Aio(1) #AIN0
+    human2 = mraa.Aio(3) #AIN2
     return1 = human1.read()
     return2 = human2.read()
     return return1,return2
@@ -32,9 +32,13 @@ def ControlRelay2(flag):
 
 if __name__ == "__main__":
     while True:
-        print(AirRead())
-        print(TemperatureRead())
+        print(NoiseRead)
+        print(HumanRead)
         ControlRelay1(1)
         time.sleep(1)
         ControlRelay1(0)
         time.sleep(1)
+	ControlRelay2(1)
+	time.sleep(1)
+	ControlRelay2(0)
+	time.sleep(1)
