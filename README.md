@@ -1,3 +1,3 @@
 # BBGW
-this is a web running on BBGW 
+BBGW sample IoT web application
 
