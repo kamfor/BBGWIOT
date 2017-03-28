@@ -20,13 +20,10 @@
                 $('#log').append('<br>' + $('<div/>').text('Received #' + msg.count + ': ' + msg.data).html());
             }); */
             socket.on('my data', function (msg) {
-                //    $('#data').append('<br>' + $('<div/>').text('My data :' + msg.data ).html());
-                $('#data').text('Human Sensor 1 :' + msg.data + " C").html();
-                $('#data1').text('Human Sensor 2 :' + msg.data1 + " F").html();
+                $('#data1').text('Proximity Sensor :' + msg.data1).html();
                 $('#data2').text('Noise Level :' + msg.data2).html();
 
-                //$('#data').text('My data :' + msg.data).html();
-                update(Number(msg.data), Number(msg.data1))
+                update(Number(msg.data1),0)
                 update2(Number(msg.data2))
                 console.log("get data")
             });
@@ -49,7 +46,6 @@
 
         });
         function myFunction(name) {
-            //alert("This will " + name + "the relay");
             socket.emit('my relay', { data: name
             });
         }
@@ -57,17 +53,15 @@
 </head>
 
 <body>
-    <h1 align="center">Home Control Center</h1>
-    <br>
-    <p>
-        <font size="5" face="arial" color="green">
-            Przykład wykorzystania komputera jedno-płytkowego BeagleBone Green Wireless
+   <p>
+	<br>
+        <font size="8" face="arial" color="green" align="center">
+            Beagle Bone Green Wireless single-board computer
         </font>
     </p>
 
 
-    <h2 align="center">Human Sensors</h2>
-    <div id="data"></div>
+    <h2 align="center">Proximity Sensor</h2>
     <div id="data1"></div>
     <div align="center" , style="width:60%; margin:auto">
         <canvas id="canvas" height=100% width=height*4/5></canvas>

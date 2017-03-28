@@ -4,14 +4,12 @@ import mraa
 def NoiseRead():
     noise = mraa.Aio(7) #AIN6
     NoiseValue = noise.read()
-    return NoiseValue
+    return 1023-NoiseValue
 
-def HumanRead():
-    human1 = mraa.Aio(1) #AIN0
-    human2 = mraa.Aio(3) #AIN2
-    return1 = human1.read()
-    return2 = human2.read()
-    return return1,return2
+def ProxRead():
+    prox = mraa.Aio(3) #AIN2
+    return1 = prox.read()
+    return 1023-return1
 
 def ControlRelay1(flag):
     relay = mraa.Gpio(62) # GPIO_51
@@ -33,7 +31,7 @@ def ControlRelay2(flag):
 if __name__ == "__main__":
     while True:
         print(NoiseRead)
-        print(HumanRead)
+        print(ProxRead)
         ControlRelay1(1)
         time.sleep(1)
         ControlRelay1(0)

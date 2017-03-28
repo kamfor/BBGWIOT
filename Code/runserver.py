@@ -20,20 +20,17 @@ thread = None
 def background_thread():
     """Example of how to send server generated events to clients."""
     noise = 0
-    human1 = 0
-    human2 = 0
+    proximity = 0
+   
 
     while True:
-        time.sleep(3)
+        time.sleep(1)
         print("Hello")
-        socketio.emit('my response',
-                      {'data': 'Server generated event'},
-                      namespace='/test')
         noise = sensor.NoiseRead()
-        human1, human2 = sensor.HumanRead()
+        proximity = sensor.ProxRead()
 
         socketio.emit('my data',
-                      {'data': human1,'data1': human2,'data2': noise, },
+                      {'data1': proximity,'data2': noise, },
                       namespace='/test')
 
 @socketio.on('my relay', namespace='/test')
